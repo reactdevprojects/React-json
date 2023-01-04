@@ -99,12 +99,12 @@ handleCompleted = (id) => {
         </form>
         <ul className="todolist__content">
           {pendingTodos.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} isEdit={todo.id === this.state.editId} handleEdit={this.handleEdit} handleUpdate={this.handleUpdate} handleCompleted={this.handleCompleted} onDelete={this.handleDelete} />
+            <TodoItem key={todo.id} todo={todo} isEdit={todo.id === this.state.editId} handleEdit={this.handleEdit} handleUpdate={this.handleUpdate} handleCompleted={()=>{this.handleCompleted(todo.id)}} onDelete={this.handleDelete} />
           ))}
           <hr/>
       
           {completedTodos.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} isEdit={todo.id === this.state.editId} handleEdit={this.handleEdit} handleUpdate={this.handleUpdate} handleCompleted={this.handleCompleted} onDelete={this.handleDelete} />
+            <TodoItem key={todo.id} todo={todo} isEdit={todo.id === this.state.editId} handleEdit={this.handleEdit} handleUpdate={this.handleUpdate} handleCompleted={()=>{this.handleCompleted(todo.id)}} onDelete={this.handleDelete} />
           ))}
         </ul>
       </section>

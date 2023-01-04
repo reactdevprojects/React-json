@@ -26,7 +26,7 @@ class TodoItem extends React.Component {
        
        })()} */}
 
-       {isEdit?<input value={this.state.input} onChange={this.handleChange}/>:<span onClick={()=>{handleCompleted(id)}}>{title}</span>}
+       {isEdit?<input value={this.state.input} onChange={this.handleChange}/>:<span onClick={handleCompleted}>{title}</span>}
        {isEdit?<button onClick={()=>{
         handleUpdate(id,this.state.input)
        }}>Update</button>:<button onClick={()=>handleEdit(id)}>Edit</button>}
