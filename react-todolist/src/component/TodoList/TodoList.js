@@ -1,15 +1,36 @@
 import React from "react";
 import TodoItem from "./TodoItem/TodoItem";
-import { getTodos, addTodo, removeTodo } from "../../apis/TodoApis";
+import { getTodos, addTodo, removeTodo, updateTodo } from "../../apis/TodoApis";
 
 import "./TodoList.css";
 
 class TodoList extends React.Component {
   state = {
+    editId: null,
     todos: [],
     inputText: "",
   };
 
+  handleEdit = (id) => {
+    this.setState({
+      editId:id
+    })
+  }
+
+handleUpdate=(id,title) =>{
+  updateTodo(id,title).then((res)=>{
+    this.setState({
+      editId:null,
+      todos: this.state.todos.map(item =>{
+       if(item.id === id){
+        return res
+      }else{
+return item
+        }
+      } )
+    })
+  })
+}
   handleInputChange = (e) => {
     this.setState({
       inputText: e.target.value,
@@ -44,6 +65,7 @@ class TodoList extends React.Component {
   };
 
   render() {
+    console.log(this.state.editId)
     return (
       <section className="todolist">
         <header className="todolist__header">
@@ -62,7 +84,7 @@ class TodoList extends React.Component {
         </form>
         <ul className="todolist__content">
           {this.state.todos.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} onDelete={this.handleDelete} />
+            <TodoItem key={todo.id} todo={todo} isEdit={todo.id === this.state.editId} handleEdit={this.handleEdit} handleUpdate={this.handleUpdate} onDelete={this.handleDelete} />
           ))}
         </ul>
       </section>

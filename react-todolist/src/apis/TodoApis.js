@@ -14,9 +14,16 @@ const removeTodo = (id) => {
     method: "DELETE",
   }).then((res) => res.json());
 };
+const updateTodo = (id, title) => {
+  return fetch(URL + `/${id}`,{
+    method: "PATCH",
+    body: JSON.stringify({id, title}),
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => res.json());
+}
 
 const getTodos = () => {
   return fetch(URL).then((res) => res.json());
 };
 
-export { addTodo, removeTodo, getTodos };
+export { addTodo, removeTodo, getTodos, updateTodo };
