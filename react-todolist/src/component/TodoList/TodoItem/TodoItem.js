@@ -14,7 +14,7 @@ class TodoItem extends React.Component {
   }
   render() {
     const { id, title } = this.props.todo;
-    const { onDelete, isEdit, handleEdit, handleUpdate } = this.props;
+    const { onDelete, isEdit, handleEdit, handleUpdate, handleCompleted } = this.props;
     return (
       <li className="todoitem">
        {/* {(()=>{
@@ -26,7 +26,7 @@ class TodoItem extends React.Component {
        
        })()} */}
 
-       {isEdit?<input value={this.state.input} onChange={this.handleChange}/>:<span>{title}</span>}
+       {isEdit?<input value={this.state.input} onChange={this.handleChange}/>:<span onClick={()=>{handleCompleted(id)}}>{title}</span>}
        {isEdit?<button onClick={()=>{
         handleUpdate(id,this.state.input)
        }}>Update</button>:<button onClick={()=>handleEdit(id)}>Edit</button>}

@@ -31,6 +31,19 @@ return item
     })
   })
 }
+
+handleCompleted = (id) => {
+  this.setState({
+      todos: this.state.todos.map((item) => {
+          if (item.id === id) {
+              return { ...item, completed: !item.completed }
+          } else {
+              return item;
+          }
+      }),
+  })
+}
+
   handleInputChange = (e) => {
     this.setState({
       inputText: e.target.value,
@@ -66,6 +79,8 @@ return item
 
   render() {
     console.log(this.state.editId)
+    const pendingTodos = this.state.todos.filter((item) => !item.completed);
+    const completedTodos = this.state.todos.filter((item) => item.completed);
     return (
       <section className="todolist">
         <header className="todolist__header">
@@ -83,8 +98,13 @@ return item
           </button>
         </form>
         <ul className="todolist__content">
-          {this.state.todos.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} isEdit={todo.id === this.state.editId} handleEdit={this.handleEdit} handleUpdate={this.handleUpdate} onDelete={this.handleDelete} />
+          {pendingTodos.map((todo) => (
+            <TodoItem key={todo.id} todo={todo} isEdit={todo.id === this.state.editId} handleEdit={this.handleEdit} handleUpdate={this.handleUpdate} handleCompleted={this.handleCompleted} onDelete={this.handleDelete} />
+          ))}
+          <hr/>
+      
+          {completedTodos.map((todo) => (
+            <TodoItem key={todo.id} todo={todo} isEdit={todo.id === this.state.editId} handleEdit={this.handleEdit} handleUpdate={this.handleUpdate} handleCompleted={this.handleCompleted} onDelete={this.handleDelete} />
           ))}
         </ul>
       </section>
